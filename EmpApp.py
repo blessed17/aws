@@ -25,9 +25,40 @@ table = 'employee'
 def home():
     if request.method == 'GET':
         return render_template('AddEmp.html')
-    
 
-@app.route("/about", methods=['POST'])
+
+@app.route("/getemp", methods=['GET', 'POST'])
+def getEmp():
+    if request.method == 'GET':
+        return render_template('GetEmp.html')
+    else:
+               
+          emp_id = request.form['emp_id']
+
+          insert_sql = "SELECT * FROM employee where emp_id = (%s)"
+          cursor = db_conn.cursor()
+          try: 
+                cursor.execute(insert_sql, (emp_id))
+                # db_conn.commit()
+                records = cursor.fetchall()
+                for row in records:
+                    emp_id = row[0]
+                    first_name = row[1]
+                    last_name = row[2]
+                    pri_skill = row[3]
+                    location = row[4]
+
+          finally:             
+                cursor.close()
+                print("Get data...")
+                return render_template('GetEmpOutput.html', id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location)
+
+@app.route("/getempout")
+def getEmpOutput():
+    return render_template('GetEmpOutput.html')
+
+
+@app.route("/about")
 def about():
     return render_template('www.intellipaat.com')
 
