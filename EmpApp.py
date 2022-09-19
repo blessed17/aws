@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from pymysql import connections
 import os
 import boto3
+import pathlib
 from config import *
 
 app = Flask(__name__)
@@ -65,14 +66,14 @@ def about():
 
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
-    emp_id = request.form['emp_id']
+    # emp_id = request.form['emp_id']
     first_name = request.form['first_name']
     last_name = request.form['last_name']
     pri_skill = request.form['pri_skill']
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
-    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
+    insert_sql = "INSERT INTO employee VALUES (%s,%s, %s, %s, %s)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
@@ -80,11 +81,18 @@ def AddEmp():
 
     try:
 
-        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location))
+        cursor.execute(insert_sql, (None,first_name, last_name, pri_skill, location))
         db_conn.commit()
+
+        sql_select_Query = "SELECT emp_id FROM employee ORDER BY emp_id DESC LIMIT 1"
+        cursor = db_conn.cursor()
+        cursor.execute(sql_select_Query)
+
+        emp_id = cursor.fetchone()
+
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
-        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
+        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id[0]) + "_image_file"+pathlib.Path(emp_image_file.filename).suffix
         s3 = boto3.resource('s3')
 
         try:
