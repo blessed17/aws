@@ -23,9 +23,8 @@ table = 'employee'
 
 
 @app.route("/", methods=['GET', 'POST'])
-def home():
-    if request.method == 'GET':
-        return render_template('AddEmp.html')
+def home():    
+    return render_template('AddEmp.html')
 
 
 @app.route("/getemp", methods=['GET', 'POST'])
@@ -126,12 +125,22 @@ def AddEmp():
 
 @app.route("/displayemp", methods=['POST'])
 def displayEmployee():
+    cursor = db_conn.cursor()
+    cursor.execute("Select * from employee")
+    employeeList = cursor.fetchall()
+    print(employeeList)
+    return render_template('DisplayEmployee.html', empList = employeeList, bucketName = bucket)
 
-    return render_template('DisplayEmployee.html', name=emp_name)
-
-@app.route("/deleteemp", methods=['POST'])
-def deleteEmployee():
-
+@app.route("/editemp", methods=['GET', 'POST'])
+def editEmployee():
+    if request.method == 'GET':
+        cursor = db_conn.cursor()
+        query = "DELETE FROM employee WHERE emp_id = %d"
+        id = 7
+        cursor.execute(query, id)
+        db_conn.commit()
+    else:
+        return render_template('AddEmpOutput.html')    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
