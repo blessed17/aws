@@ -54,10 +54,9 @@ def getEmp():
                 print("Get data...")
                 return render_template('GetEmpOutput.html', id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location)
 
-@app.route("/getempout")
-def getEmpOutput():
-    return render_template('GetEmpOutput.html')
-
+# @app.route("/getempout")
+# def getEmpOutput():
+#     return render_template('GetEmpOutput.html')
 
 @app.route("/about")
 def about():
@@ -73,7 +72,7 @@ def AddEmp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
-    insert_sql = "INSERT INTO employee VALUES (%s,%s, %s, %s, %s)"
+    insert_sql = "INSERT INTO employee VALUES (%s,%s, %s, %s, %s,%s)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
@@ -81,18 +80,23 @@ def AddEmp():
 
     try:
 
-        cursor.execute(insert_sql, (None,first_name, last_name, pri_skill, location))
+        cursor.execute(insert_sql, (None,first_name, last_name, pri_skill, location,None))
         db_conn.commit()
 
         sql_select_Query = "SELECT emp_id FROM employee ORDER BY emp_id DESC LIMIT 1"
         cursor = db_conn.cursor()
-        cursor.execute(sql_select_Query)
+        cursor.execute(sql_select_Query)      
 
         emp_id = cursor.fetchone()
 
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
         emp_image_file_name_in_s3 = "emp-id-" + str(emp_id[0]) + "_image_file"+pathlib.Path(emp_image_file.filename).suffix
+
+        update_sql = "UPDATE employee set img_url =(%s) where emp_id=(%s)"
+        cursor.execute(update_sql,(emp_image_file_name_in_s3,str(emp_id[0])))
+        db_conn.commit()
+
         s3 = boto3.resource('s3')
 
         try:
