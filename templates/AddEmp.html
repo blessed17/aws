@@ -1,45 +1,94 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Add Employee Information</title>
-</head>
-<center>
-	<font color="black" size="4" style="font-family: avenir">
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Register - SB Admin</title>
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="bg-primary">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Add Employee</h3></div>
+                                    <div class="card-body">
+                                        <form autocomplete="on" enctype="multipart/form-data" method = "POST" action="/addemp">
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" name="first_name" type="text" placeholder="Enter your first name" />
+                                                        <label for="inputFirstName">First name</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating">
+                                                        <input class="form-control" type="text" name="last_name" placeholder="Enter your last name" />
+                                                        <label for="inputLastName">Last name</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" name="pri_skill" type="text" placeholder="name@example.com" />
+                                                <label for="inputEmail">Primary Skills</label>
+                                            </div>
+                                            <!-- <div class="row mb-3"> -->
+                                                <!-- <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" id="inputPassword" type="password" placeholder="Create a password" />
+                                                        <label for="inputPassword">Password</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6"> -->
+                                                    <div class="form-floating mb-3">
+                                                        <input class="form-control" name="location" type="text" placeholder="Confirm password" />
+                                                        <label for="inputPasswordConfirm">Location</label>
+                                                    </div>
+                                                <!-- </div> -->
+                                            <!-- </div> -->
+                                            <div class="form-floating mb-3">
+                                                <div style="padding: 0 0 0 0.75rem;">Image</div>
+                                                <input type=file name="emp_image_file" style="padding: 0.15rem 0 0 0.5rem;"> <br>
+                                            </div>
+                                            
 
-		<h1 style="color: DodgerBlue">Employee Database</h1>
-
-		<body bgcolor="lightgrey">
-
-			<form method = "GET" action="/getemp">
-				<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">GET EMPLOYEE INFORMATION</button><br><br>
-			</form>
-
-			<form autocomplete="on" enctype="multipart/form-data" method = "POST" action="/addemp">
-
-				<!-- <button type="submit" method = "GET" formaction="/getemp" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">GET EMPLOYEE INFORMATION</button><br><br> -->
-				<!-- <button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">GET EMPLOYEE INFORMATION</button><br><br> -->
-
-		  		Employee ID:<br> <input style="height:25px;font-size:14pt; color:grey;" type="number" name="emp_id" autofocus size="40"><br><br>
-
-		  		First Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="first_name" ><br><br>
-
-		  		Last Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="last_name"><br><br>
-
-		  		Primary Skills:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="pri_skill"><br><br>
-
-		  		Location:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="location"><br><br>
-
-		  		Image: <input type=file name="emp_image_file" style="height:25px;font-size:14pt;color:grey;"> <br><br>
-
-		  		<button type="upload" style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">UPDATE DATABASE</button>
-
-			</form>
-
-			
-
-<a href="/about">About Us</a>
-		</body>
-
-	</font>
-</center>
+                                            <div class="mt-4 mb-0">
+                                                <div class="d-grid"><a class="btn btn-primary btn-block" href="login.html"> Add Employee</a></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- <div class="card-footer text-center py-3">
+                                        <div class="small"><a href="login.html">Have an account? Go to login</a></div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            <div id="layoutAuthentication_footer">
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; TWL Website 2022</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+    </body>
 </html>
