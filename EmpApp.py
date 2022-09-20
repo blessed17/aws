@@ -77,7 +77,7 @@ def AddEmp():
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
-        return "Please select a file"
+        return "Please select a file zzzzz"
 
     try:
 
