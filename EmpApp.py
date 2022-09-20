@@ -123,22 +123,23 @@ def AddEmp():
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
 
-@app.route("/displayemp", methods=['POST'])
+@app.route("/displayemp", methods=['GET'])
 def displayEmployee():
     cursor = db_conn.cursor()
     cursor.execute("Select * from employee")
     employeeList = cursor.fetchall()
     print(employeeList)
-    return render_template('DisplayEmployee.html', empList = employeeList, bucketName = bucket)
+    return render_template('DisplayEmp.html', empList = employeeList, bucketName = bucket)
 
 @app.route("/editemp", methods=['GET', 'POST'])
 def editEmployee():
     if request.method == 'GET':
         cursor = db_conn.cursor()
-        query = "DELETE FROM employee WHERE emp_id = %d"
-        id = 7
+        query = "DELETE FROM employee WHERE emp_id = %s"
+        id = str(7)
         cursor.execute(query, id)
-        db_conn.commit()
+        db_conn.commit()        
+        #return render_template('DisplayEmp.html', empList = employeeList, bucketName = bucket)
     else:
         return render_template('AddEmpOutput.html')    
 
