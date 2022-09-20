@@ -120,6 +120,29 @@ def AddEmp():
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
 
+<<<<<<< Updated upstream
+=======
+@app.route("/displayemp", methods=['GET'])
+def displayEmployee():
+    cursor = db_conn.cursor()
+    cursor.execute("Select * from employee")
+    employeeList = cursor.fetchall()
+    print(employeeList)
+    return render_template('DisplayEmp.html', empList = employeeList, bucketName = bucket)
+
+@app.route("/deleteemp", methods=['GET', 'POST'])
+def deleteEmployee():
+    cursor = db_conn.cursor()
+    query = "DELETE FROM employee WHERE emp_id = %s"
+    id = str(9)
+    cursor.execute(query, id)
+    db_conn.commit()        
+    #return render_template('DisplayEmp.html', empList = employeeList, bucketName = bucket)
+
+@app.route("/editemp")
+def editEmployee():
+     return render_template('EditEmp.html')  
+>>>>>>> Stashed changes
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
