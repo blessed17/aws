@@ -24,7 +24,8 @@ table = 'employee'
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template('AddEmp.html')
+    if request.method == 'GET':
+        return render_template('AddEmp.html')
 
 
 @app.route("/getemp", methods=['GET', 'POST'])
@@ -53,9 +54,10 @@ def getEmp():
                 print("Get data...")
                 return render_template('GetEmpOutput.html', id=emp_id,fname=first_name,lname=last_name,interest=pri_skill,location=location)
 
-# @app.route("/getempout")
-# def getEmpOutput():
-#     return render_template('GetEmpOutput.html')
+@app.route("/getempout")
+def getEmpOutput():
+    return render_template('GetEmpOutput.html')
+
 
 @app.route("/about")
 def about():
@@ -71,7 +73,7 @@ def AddEmp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
-    insert_sql = "INSERT INTO employee VALUES (%s,%s, %s, %s, %s,%s)"
+    insert_sql = "INSERT INTO employee VALUES (%s,%s, %s, %s, %s)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
@@ -79,23 +81,18 @@ def AddEmp():
 
     try:
 
-        cursor.execute(insert_sql, (None,first_name, last_name, pri_skill, location,None))
+        cursor.execute(insert_sql, (None,first_name, last_name, pri_skill, location))
         db_conn.commit()
 
         sql_select_Query = "SELECT emp_id FROM employee ORDER BY emp_id DESC LIMIT 1"
         cursor = db_conn.cursor()
-        cursor.execute(sql_select_Query)      
+        cursor.execute(sql_select_Query)
 
         emp_id = cursor.fetchone()
 
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
         emp_image_file_name_in_s3 = "emp-id-" + str(emp_id[0]) + "_image_file"+pathlib.Path(emp_image_file.filename).suffix
-
-        update_sql = "UPDATE employee set img_url =(%s) where emp_id=(%s)"
-        cursor.execute(update_sql,(emp_image_file_name_in_s3,str(emp_id[0])))
-        db_conn.commit()
-
         s3 = boto3.resource('s3')
 
         try:
@@ -131,17 +128,18 @@ def displayEmployee():
     print(employeeList)
     return render_template('DisplayEmp.html', empList = employeeList, bucketName = bucket)
 
-@app.route("/editemp", methods=['GET', 'POST'])
+@app.route("/deleteemp", methods=['GET', 'POST'])
+def deleteEmployee():
+    cursor = db_conn.cursor()
+    query = "DELETE FROM employee WHERE emp_id = %s"
+    id = str(9)
+    cursor.execute(query, id)
+    db_conn.commit()        
+    #return render_template('DisplayEmp.html', empList = employeeList, bucketName = bucket)
+
+@app.route("/editemp")
 def editEmployee():
-    if request.method == 'GET':
-        cursor = db_conn.cursor()
-        query = "DELETE FROM employee WHERE emp_id = %s"
-        id = str(7)
-        cursor.execute(query, id)
-        db_conn.commit()        
-        #return render_template('DisplayEmp.html', empList = employeeList, bucketName = bucket)
-    else:
-        return render_template('AddEmpOutput.html')    
+     return render_template('EditEmp.html')  
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
