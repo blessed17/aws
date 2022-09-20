@@ -124,13 +124,12 @@ def AddEmp():
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
 
-
-@app.route("/displayemp", methods=['GET'])
+@app.route("/displayemp", methods=['POST'])
 def displayEmployee():
 
     return render_template('DisplayEmployee.html', name=emp_name)
 
-@app.route("/displayemp", methods=['POST'])
+@app.route("/deleteemp", methods=['POST'])
 def deleteEmployee():
 
 
