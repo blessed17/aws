@@ -155,14 +155,6 @@ def deleteEmployee():
     db_conn.commit()  
     return redirect(url_for("displayEmployee"))
 
-@app.route("/editemp")
-def editEmployee():
-     return render_template('EditEmp.html')  
-=======
-    db_conn.commit()  
-
-    return redirect(url_for("displayEmployee"))
-
 @app.route("/editemp/<id>", methods=['GET', 'POST'])
 def editEmployee(id):
     emp_id = str(id)
