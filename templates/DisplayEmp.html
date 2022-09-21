@@ -182,12 +182,10 @@
                                             <td>{{row[4]}}</td>                                            
                                             <td>
                                                 <form action="/editemp" method = "POST">
-                                                    <button name="EditEmployee" type="submit" value="{{row[0]}}">Edit</button>                                                
-                                                </form>
-
+                                                    <button name="EditEmployee" type="submit" value="{{row[0]}}" style="width:100%; margin-bottom: 5px; background-color: #0d6efd; color: white;">Edit</button>                                                
+                                                </form>                                                
                                                 <form action="/deleteemp" method = "POST">
-
-                                                    <button name="DeleteEmployee" type="submit" value="{{row[0]}}">Delete</button>
+                                                    <button name="DeleteEmployee" type="submit" value="{{row[0]}}" style="width:100%; background-color: #d11a2a; color: white;">Delete</button>
                                                 </form>
                                             </td>
                                         </tr>
