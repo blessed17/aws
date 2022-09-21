@@ -11700,3 +11700,57 @@ body {
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
 }
+
+.upload_image_container {
+  position: relative;
+  width: 100%;
+}
+
+.upload_image_container img{
+  border-radius: 50%;
+  border: 1px; 
+  width: 100px;
+  height:100px;
+}
+
+.upload_image_container.btn{
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  background-color: transparent;
+  color: transparent;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  width:50%;
+  height: 100%;
+}
+
+.upload_image_container.btn:hover{
+  background-color: transparent;
+}
+
+.upload{
+  display: inline-block;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor:pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  background-color: transparent;
+  color: transparent;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  width:50%;
+  height: 100%;
+}
