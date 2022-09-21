@@ -214,5 +214,9 @@ def updateEmployee(id):
         db_conn.commit()
         return redirect(url_for("displayEmployee"))
 
+@app.route("/uploadfile", methods=['GET', 'POST'])
+def uploadFile():        
+    return render_template('UploadFile.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
