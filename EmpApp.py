@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from pymysql import connections
 import pymysql
+import botocore
 import os
 import boto3
 import pathlib
@@ -221,6 +222,28 @@ def updateEmployee(id):
         cursor.execute(query ,query_item)
         db_conn.commit()
         return redirect(url_for("displayEmployee"))
+
+@app.route("/displaydoc", methods=['POST','GET'])
+def displayDoc():
+    cursor = db_conn.cursor()
+    cursor.execute("Select * from document")
+    documentList = cursor.fetchall()
+    print(documentList)
+    return render_template('DisplayFile.html',docList = documentList, bucketName = bucket)  
+
+@app.route("/downloadfile/<url>", methods=['POST','GET'])
+def downloadFile(url):
+    s3 = boto3.resource('s3')
+    try:
+        s3.Bucket(custombucket).download_file(url, 'download.jpg')
+        print("hi")
+    except botocore.exceptions.ClientError as e:
+        if e.response['Error']['Code'] == "404":
+            print("The object does not exist.")
+        else:
+            raise Exception
+    return redirect(url_for("displayDoc"))
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
