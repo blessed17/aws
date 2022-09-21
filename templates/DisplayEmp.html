@@ -181,8 +181,8 @@
                                             <td>{{row[3]}}</td>
                                             <td>{{row[4]}}</td>                                            
                                             <td>
-                                                <form action="/editemp" method = "POST">
-                                                    <button name="EditEmployee" type="submit" value="{{row[0]}}">Edit</button>                                                
+                                                <form action="/editemp/{{row[0]}}" method = "POST">
+                                                    <button name="EditEmployee" type="submit" value="{{row[0]}}">Edit</button>
                                                 </form>
                                                 <form action="/deleteemp" method = "GET">
                                                     <button name="DeleteEmployee" type="submit" value="{{row[0]}}">Delete</button>
