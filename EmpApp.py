@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from pymysql import connections
 import pymysql
 import os
@@ -25,8 +25,7 @@ table = 'employee'
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    if request.method == 'GET':
-        return render_template('AddEmp.html')
+    return render_template('AddEmp.html')
 
 
 @app.route("/getemp", methods=['GET', 'POST'])
@@ -74,7 +73,7 @@ def AddEmp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
-    insert_sql = "INSERT INTO employee VALUES (%s,%s, %s, %s, %s)"
+    insert_sql = "INSERT INTO employee VALUES (%s,%s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
@@ -82,7 +81,7 @@ def AddEmp():
 
     try:
 
- cursor.execute(insert_sql, (None,first_name, last_name, pri_skill, location,None))
+        cursor.execute(insert_sql, (None,first_name, last_name, pri_skill, location,None))
  
         db_conn.commit()
 
@@ -137,13 +136,24 @@ def displayEmployee():
 
 @app.route("/deleteemp", methods=['GET', 'POST'])
 def deleteEmployee():
+
+    # delete data in database
     cursor = db_conn.cursor()
     query = "DELETE FROM employee WHERE emp_id = %s"
-    id = str(9)
+    id = str(request.form['DeleteEmployee'])
+
+    # delete image in S3 bucket
+    mycursor = db_conn.cursor()
+    myquery ="SELECT img_url FROM employee WHERE emp_id = %s"
+    mycursor.execute(myquery, id)
+    img = str(mycursor.fetchall())
+    img = img[3:-5]
+    s3 = boto3.resource('s3')
+    s3.Object(custombucket, img).delete()    
     cursor.execute(query, id)
-<<<<<<< Updated upstream
-    db_conn.commit()        
-    #return render_template('DisplayEmp.html', empList = employeeList, bucketName = bucket)
+
+    db_conn.commit()  
+    return redirect(url_for("displayEmployee"))
 
 @app.route("/editemp")
 def editEmployee():
@@ -211,7 +221,6 @@ def updateEmployee(id):
         cursor.execute(query ,query_item)
         db_conn.commit()
         return redirect(url_for("displayEmployee"))
->>>>>>> Stashed changes
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
