@@ -79,7 +79,11 @@ def AddEmp():
 
     try:
 
+<<<<<<< Updated upstream
         cursor.execute(insert_sql, (None,first_name, last_name, pri_skill, location,None))
+=======
+        cursor.execute(insert_sql, (None,first_name, last_name, pri_skill, location,''))
+>>>>>>> Stashed changes
         db_conn.commit()
 
         sql_select_Query = "SELECT emp_id FROM employee ORDER BY emp_id DESC LIMIT 1"
@@ -95,7 +99,11 @@ def AddEmp():
         update_sql = "UPDATE employee set img_url =(%s) where emp_id=(%s)"
         cursor.execute(update_sql,(emp_image_file_name_in_s3,str(emp_id[0])))
         db_conn.commit()
+<<<<<<< Updated upstream
 
+=======
+        
+>>>>>>> Stashed changes
         s3 = boto3.resource('s3')
 
         try:
