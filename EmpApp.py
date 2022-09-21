@@ -73,7 +73,7 @@ def AddEmp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
-    insert_sql = "INSERT INTO employee VALUES (%s,%s, %s, %s, %s)"
+    insert_sql = "INSERT INTO employee VALUES (%s,%s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
@@ -81,7 +81,7 @@ def AddEmp():
 
     try:
 
- cursor.execute(insert_sql, (None,first_name, last_name, pri_skill, location,None))
+        cursor.execute(insert_sql, (None,first_name, last_name, pri_skill, location,None))
  
         db_conn.commit()
 
