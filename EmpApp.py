@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from pymysql import connections
 import os
 import boto3
@@ -131,7 +131,29 @@ def displayEmployee():
     print(employeeList)
     return render_template('DisplayEmp.html', empList = employeeList, bucketName = bucket)
 
-@app.route("/editemp", methods=['GET', 'POST'])
+@app.route("/deleteemp", methods=['GET', 'POST'])
+def deleteEmployee():
+    # delete data in database
+    cursor = db_conn.cursor()
+    query = "DELETE FROM employee WHERE emp_id = %s"
+    id = str(request.form['DeleteEmployee'])
+
+    # delete image in S3 bucket
+    mycursor = db_conn.cursor()
+    myquery ="SELECT img_url FROM employee WHERE emp_id = %s"
+    mycursor.execute(myquery, id)
+    img = str(mycursor.fetchall())
+    img = img[3:-5]
+    s3 = boto3.resource('s3')
+    s3.Object(custombucket, img).delete()    
+    cursor.execute(query, id)
+    db_conn.commit()  
+
+    return redirect(url_for("displayEmployee"))
+
+
+
+@app.route("/editemp")
 def editEmployee():
     if request.method == 'GET':
         cursor = db_conn.cursor()
