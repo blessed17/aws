@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Display Employee</title>
+        <title>Tables - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="{{ url_for('static',filename='assets/css/styles.css') }}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -97,7 +97,7 @@
                             </a>
                             <a class="nav-link" href="tables.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Employee List
+                                Tables
                             </a>
                         </div>
                     </div>
@@ -108,115 +108,49 @@
                 </nav>
             </div>
             
-            <!-- table start here -->
+            <!-- content start here -->
 
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Tables</li>
-                        </ol>
-                        <!-- <div class="card mb-4">
-                            <div class="card-body">
-                                DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
-                                <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
-                                .
-                            </div>
-                        </div> -->
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Employee List
-                            </div>
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>Image</th>
-                                            <th>Employee ID</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Primary Skills</th>
-                                            <th>Location</th>
-                                            <th>Action</th>                             
-                                        </tr>
-                                    </thead>
-                                    <!-- <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </tfoot> -->
-
-                                    <!-- below one need to change -->
-
-                                    <tbody>
-                                        <!-- <tr>
-                                            <td><img src="yx.png" alt="Avatar" style="height:35px; width:35px; border-radius: 50%;"></td>
-                                            <td>11</td>
-                                            <td>Tan</td>
-                                            <td>Hao You</td>
-                                            <td>Play Game</td>
-                                            <td>Taman Melati</td>
-                                            <td>
-                                                <form action="/action_page.php" method="get">
-                                                <button name="EditEmployee" type="submit" value=>Edit</button>
-                                                <button name="DeleteEmployee" type="submit" value=>Delete</button>
-                                                </form>
-                                            </td>
-                                        </tr> -->
-                                        
-                                        {% for row in empList %}
-                                        <tr>
-                                            <td><img src="https://{{bucketName}}.s3.amazonaws.com/{{row[5]}}" alt="Avatar" style="height:35px; width:35px; border-radius: 50%;"></td>
-                                            <td>{{row[0]}}</td>
-                                            <td>{{row[1]}}</td>
-                                            <td>{{row[2]}}</td>
-                                            <td>{{row[3]}}</td>
-                                            <td>{{row[4]}}</td>                                            
-                                            <td>
-                                           
-                                                <form action="/editemp/{{row[0]}}" method = "POST">
-                                                    <button name="EditEmployee" type="submit" value="{{row[0]}}" style="width:100%; margin-bottom: 5px; background-color: #0d6efd; color: white;">Edit</button>
-                                                </form>
-
-                                                <form action="/deleteemp" method = "POST">
-                                                    <button name="DeleteEmployee" type="submit" value="{{row[0]}}" style="width:100%; background-color: #d11a2a; color: white;">Delete</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Upload File</h3></div>
+                                    <div class="card-body">
+                                        <form autocomplete="on" enctype="multipart/form-data" method = "POST" action='/uploadfile'>
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" name="empID" type="text" placeholder="employee id" />
+                                                <label for="inputDocName">Employee ID</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" name="docName" type="text" placeholder="any name" />
+                                                <label for="inputDocName">Document Name</label>
+                                            </div>
+                                            <div class="mt-4 mb-0">
+                                                <div class="d-grid">
+                                                    <!-- <button type="file" class="btn" style="border: 1px solid;">Upload File</button>
+                                                    <div style="padding: 0 0 0 0.75rem;">Image</div>                                                 -->
+                                                    <input type=file name="emp_image_file" style="border: 1px solid #CED4DA; padding: 1rem;" ><br>
+                                                </div>
+                                            </div>
+                                            <div class="mt-4 mb-0">
+                                                <div class="d-grid">
+                                                    <button type="submit" class="btn btn-primary btn-block">Upload</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
                 </main>
-
-
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
             </div>
+
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="{{ url_for('static',filename='assets/js/scripts.js') }}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="{{ url_for('static',filename='assets/js/datatables-simple-demo.js') }}"></script>
+        <script src="{{ url_for('static',filename='assets/js/scripts.js') }}"></script>    
     </body>
 </html>

@@ -156,14 +156,6 @@ def deleteEmployee():
     db_conn.commit()  
     return redirect(url_for("displayEmployee"))
 
-@app.route("/editemp")
-def editEmployee():
-     return render_template('EditEmp.html')  
-=======
-    db_conn.commit()  
-
-    return redirect(url_for("displayEmployee"))
-
 @app.route("/editemp/<id>", methods=['GET', 'POST'])
 def editEmployee(id):
     emp_id = str(id)
@@ -222,6 +214,11 @@ def updateEmployee(id):
         cursor.execute(query ,query_item)
         db_conn.commit()
         return redirect(url_for("displayEmployee"))
+        
+@app.route("/uploadfile", methods=['GET', 'POST'])
+def uploadFile():        
+    return render_template('UploadFile.html')
+
 
 @app.route("/displaydoc", methods=['POST','GET'])
 def displayDoc():
@@ -243,7 +240,6 @@ def downloadFile(url):
         else:
             raise Exception
     return redirect(url_for("displayDoc"))
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
