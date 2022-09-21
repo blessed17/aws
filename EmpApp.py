@@ -122,8 +122,6 @@ def AddEmp():
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
 
-<<<<<<< Updated upstream
-=======
 @app.route("/displayemp", methods=['GET'])
 def displayEmployee():
     cursor = db_conn.cursor()
@@ -141,12 +139,7 @@ def deleteEmployee():
     db_conn.commit()        
     #return render_template('DisplayEmp.html', empList = employeeList, bucketName = bucket)
 
-<<<<<<< Updated upstream
-@app.route("/editemp")
-def editEmployee():
-     return render_template('EditEmp.html')  
->>>>>>> Stashed changes
-=======
+
 @app.route("/editemp/<id>", methods=['GET', 'POST'])
 def editEmployee(id):
     emp_id = str(id)
@@ -205,7 +198,6 @@ def updateEmployee(id):
         cursor.execute(query ,query_item)
         db_conn.commit()
         return redirect(url_for("displayEmployee"))
->>>>>>> Stashed changes
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
