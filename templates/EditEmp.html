@@ -20,42 +20,46 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Edit Employee</h3></div>
                                     <div class="card-body">
-                                        <form>
-                                            <div class="form-floating mb-3" align="center">
-                                                <img src="yoimiya.jpg" alt="Employee Profile Picture" style="border-radius: 50%;border: 1px; width: 100px;height:100px;"><br><br>
-                                                <input type="button" class="edit_employee_image" value="Change Profile Picture">
+                                        <form action="/updateemp/{{employee[0]}}" method="POST" enctype="multipart/form-data">
+                                            <div class="upload_image_container" align="center">
+                                                <img src="https://{{bucketName}}.s3.amazonaws.com/{{employee[5]}}" alt="Employee Profile Picture"><br><br>
+                                                <input type="file" id="upload_image" name="emp_image_file" hidden class="btn">
+                                                <label for="upload_image" class="upload">Change Profile Picture</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="empID" type="text" placeholder="ID" value="123" disabled/>
+                                                <input class="form-control" name="emp_id" type="text" placeholder="ID" value="{{employee[0]}}" disabled/>
                                                 <label for="empID">Employee ID</label>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Tan"/>
+                                                        <input class="form-control" name="first_name" type="text" placeholder="Enter your first name" value="{{employee[1]}}"/>
                                                         <label for="inputFirstName">First name</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating">
-                                                        <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Hao You"/>
+                                                        <input class="form-control" name="last_name" type="text" placeholder="Enter your last name" value="{{employee[2]}}"/>
                                                         <label for="inputLastName">Last name</label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="primaryskill" type="text" placeholder="Enter your primary skill" value="XXXX"/>
+                                                <input class="form-control" name="pri_skill" type="text" placeholder="Enter your primary skill" value="{{employee[3]}}"/>
                                                 <label for="primaryskill">Primary Skill</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="location" type="text" placeholder="Enter your location" value="Setapak"/>
+                                                <input class="form-control" name="location" type="text" placeholder="Enter your location" value="{{employee[4]}}"/>
                                                 <label for="location">Location</label>
                                             </div>
                                             <div class="mt-4 mb-0">
-                                                <div class="d-grid"><button class="btn btn-primary btn-block" >Reset</a></div>
-                                            </div>
-                                            <div class="mt-4 mb-0">
-                                                <div class="d-grid"><button class="btn btn-primary btn-block" >Save</a></div>
+                                                <div class="d-grid">
+                                                    <button class="btn btn-primary btn-sm" >Reset</a>
+                                                </div>
+                                                <br>
+                                                <div class="d-grid">
+                                                    <button type="submit" class="btn btn-primary btn-sm" >Save</a>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
