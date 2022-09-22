@@ -23,7 +23,7 @@
                                         <form action="/updateemp/{{employee[0]}}" method="POST" enctype="multipart/form-data">
                                             <div class="upload_image_container" align="center">
                                                 <img id= display_uploaded_img src="https://{{bucketName}}.s3.amazonaws.com/{{employee[5]}}" alt="Employee Profile Picture"><br><br>
-                                                <input type="file" id="upload_image" name="emp_image_file" hidden class="btn" onchange="showChanges(event);">
+                                                <input type="file" id="upload_image" name="emp_image_file" hidden class="btn" onchange="showChanges(event)">
                                                 <label for="upload_image" class="upload">Change Profile Picture</label>
                                             </div>
                                             <div class="form-floating mb-3">
@@ -54,7 +54,7 @@
                                             </div>
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid">
-                                                    <button class="btn btn-primary btn-sm" >Reset</a>
+                                                    <button class="btn btn-primary btn-sm" onClick="this.form.reset()">Cancel</a>
                                                 </div>
                                                 <br>
                                                 <div class="d-grid">
