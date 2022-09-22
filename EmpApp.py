@@ -62,7 +62,7 @@ def getEmpOutput():
 
 @app.route("/about")
 def about():
-    return render_template('www.intellipaat.com')
+   return render_template('www.intellipaat.com')
 
 
 @app.route("/addemp", methods=['POST'])
@@ -223,17 +223,17 @@ def uploadFile():
 @app.route("/displaydoc", methods=['POST','GET'])
 def displayDoc():
     cursor = db_conn.cursor()
-    cursor.execute("Select * from document")
+    cursor.execute("SELECT doc_id, doc_name, CONCAT(first_name, ' ', last_name),upload_date, doc_url FROM employee, document WHERE employee.emp_id = document.emp_id")
     documentList = cursor.fetchall()
     print(documentList)
     return render_template('DisplayFile.html',docList = documentList, bucketName = bucket)  
 
 @app.route("/downloadfile/<url>", methods=['POST','GET'])
 def downloadFile(url):
-    s3 = boto3.resource('s3')
+    s3 = boto3.client('s3')
+    saveUrl = "../../../Downloads/"+url
     try:
-        s3.Bucket(custombucket).download_file(url, 'download.jpg')
-        print("hi")
+        s3.download_file(custombucket,url,saveUrl)
     except botocore.exceptions.ClientError as e:
         if e.response['Error']['Code'] == "404":
             print("The object does not exist.")
