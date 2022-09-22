@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+from datetime import datetime, date
 from pymysql import connections
 import pymysql
 import botocore
@@ -240,6 +241,47 @@ def downloadFile(url):
         else:
             raise Exception
     return redirect(url_for("displayDoc"))
+
+@app.route("/displayleave", methods=['GET'])
+def displayLeave():
+    cursor = db_conn.cursor()
+    cursor.execute("Select * from leaves")
+    leaveList = cursor.fetchall()
+    print(leaveList)
+    return render_template('DisplayLeave.html', lveList = leaveList, bucketName = bucket)
+
+@app.route("/viewleave/<id>", methods=['GET', 'POST'])
+def viewLeave(id):
+    leave_id = str(id)
+    query = "SELECT * FROM leaves WHERE leave_id = %s"
+    cursor = db_conn.cursor() 
+    cursor.execute(query,leave_id)
+    data = cursor.fetchall()
+    cursor.close()
+    print(data[0])
+    return render_template('ViewLeave.html',leaves = data[0], bucketName = bucket)  
+
+@app.route("/addleave", methods=['GET','POST'])
+def addLeave():
+    return render_template('AddLeave.html')
+
+@app.route("/addedleave", methods=['GET','POST'])
+def addedLeave():
+    emp_id = request.form['emp_id']
+    date_start = request.form['date_start']
+    date_end = request.form['date_end']
+    day_count = datetime.strptime(date_end,"%Y-%m-%d") - datetime.strptime(date_start,"%Y-%m-%d")
+    reason = request.form['reason']
+    apply_date = datetime.now().strftime("%Y-%m-%d")
+
+    insert_sql = "INSERT INTO leaves VALUES (%s,%s, %s, %s, %s, %s, %s)"
+    cursor = db_conn.cursor(pymysql.cursors.DictCursor)
+    cursor.execute(insert_sql, (None,emp_id, date_start, date_end, day_count.days,reason,apply_date))
+    db_conn.commit()
+    cursor.close()
+    return redirect(url_for("displayLeave"))
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
