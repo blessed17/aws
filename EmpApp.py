@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
+from datetime import datetime, date
 from pymysql import connections
 import pymysql
+import botocore
 import os
 import boto3
 import pathlib
@@ -61,7 +63,7 @@ def getEmpOutput():
 
 @app.route("/about")
 def about():
-    return render_template('www.intellipaat.com')
+   return render_template('www.intellipaat.com')
 
 
 @app.route("/addemp", methods=['POST'])
@@ -213,13 +215,10 @@ def updateEmployee(id):
         cursor.execute(query ,query_item)
         db_conn.commit()
         return redirect(url_for("displayEmployee"))
-
+        
 @app.route("/uploadfile", methods=['GET', 'POST'])
 def uploadFile():        
     return render_template('UploadFile.html')
-
-<<<<<<< Updated upstream
-=======
 
 @app.route("/displaydoc", methods=['POST','GET'])
 def displayDoc():
@@ -280,6 +279,7 @@ def addedLeave():
     db_conn.commit()
     cursor.close()
     return redirect(url_for("displayLeave"))
+
 
 @app.route("/displayclaim", methods=['GET'])
 def displayclaim():
@@ -368,6 +368,5 @@ def addedClaim():
 
     return redirect(url_for("displayclaim"))
 
->>>>>>> Stashed changes
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
