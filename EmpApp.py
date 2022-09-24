@@ -220,7 +220,6 @@ def updateEmployee(id):
 def uploadFile():        
     return render_template('UploadFile.html')
 
-
 @app.route("/displaydoc", methods=['POST','GET'])
 def displayDoc():
     cursor = db_conn.cursor()
@@ -282,6 +281,92 @@ def addedLeave():
     return redirect(url_for("displayLeave"))
 
 
+@app.route("/displayclaim", methods=['GET'])
+def displayclaim():
+    cursor = db_conn.cursor()
+    cursor.execute("Select * from claim")
+    claimList = cursor.fetchall()
+    print(claimList)
+    return render_template('DisplayClaim.html', clmList = claimList, bucketName = bucket)
+
+@app.route("/viewclaim/<id>", methods=['GET', 'POST'])
+def viewClaim(id):
+    claim_id = str(id)
+    query = "SELECT * FROM claim WHERE claim_id = %s"
+    cursor = db_conn.cursor() 
+    cursor.execute(query,claim_id)
+    data = cursor.fetchall()
+    cursor.close()
+    print(data[0])
+    return render_template('ViewClaim.html',claim = data[0], bucketName = bucket)  
+
+@app.route("/addclaim", methods=['GET','POST'])
+def addClaim():
+    return render_template('AddClaim.html')
+
+@app.route("/addedclaim", methods=['GET','POST'])
+def addedClaim():
+    emp_id = request.form['emp_id']
+    date_from = request.form['date_from']
+    date_to = request.form['date_to']
+    claim_date = datetime.now().strftime("%Y-%m-%d")    
+    claim_amount = request.form['claim_amount']
+    claim_reason = request.form['claim_reason']
+    claim_evidence = request.files['claim_evidence']
+
+    # ==================================================================================
+    insert_sql = "INSERT INTO claim VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    cursor = db_conn.cursor()
+
+    if claim_evidence.filename == "":
+        return "Please select a file"
+
+    try:
+        cursor.execute(insert_sql, (None, emp_id, date_from, date_to, claim_date, claim_amount, claim_reason, None))
+
+        db_conn.commit()
+
+        sql_select_Query = "SELECT claim_id FROM claim ORDER BY claim_id DESC LIMIT 1"
+        cursor = db_conn.cursor()
+        cursor.execute(sql_select_Query)
+
+        claim_id = cursor.fetchone()
+
+        # emp_name = "" + first_name + " " + last_name
+        # Uplaod image file in S3 #
+        claim_image_file_name_in_s3 = "claim-id-" + str(claim_id[0]) + "_image_file"+pathlib.Path(claim_evidence.filename).suffix
+        
+        update_sql = "UPDATE claim set claim_evidence =(%s) where claim_id=(%s)"
+        cursor.execute(update_sql,(claim_image_file_name_in_s3,str(claim_id[0])))
+        db_conn.commit()
+
+        s3 = boto3.resource('s3')
+
+        try:
+            print("Data inserted in MySQL RDS... uploading image to S3...")
+            s3.Bucket(custombucket).put_object(Key=claim_image_file_name_in_s3, Body=claim_evidence)
+            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
+
+            if s3_location is None:
+                s3_location = ''
+            else:
+                s3_location = '-' + s3_location
+
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                claim_image_file_name_in_s3)
+
+        except Exception as e:
+            return str(e)
+
+    finally:
+        cursor.close()
+
+    # ==================================================================================
+
+    return redirect(url_for("displayclaim"))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
