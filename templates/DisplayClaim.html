@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Employee Leaves</title>
+        <title>Employee Claim</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="{{ url_for('static',filename='assets/css/styles.css') }}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -117,39 +117,37 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Leaves</h1>
+                        <h1 class="mt-4">Claim</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Leaves</li>
+                            <li class="breadcrumb-item active">Claim</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Leave List
+                                Claim List
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Leave ID</th>
+                                            <th>Claim ID</th>
                                             <th>Employee ID</th>
-                                            <th>Start Leave Date</th>
-                                            <th>End Leave Date</th>
-                                            <th>Leave Days</th>
+                                            <th>Claim Date</th>
+                                            <th>Claim Amount</th>
                                             <th>Action</th>                             
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for row in lveList %}
+                                        {% for row in clmList %}
                                         <tr>
                                             <td>{{row[0]}}</td>
                                             <td>{{row[1]}}</td>
-                                            <td>{{row[2]}}</td>
-                                            <td>{{row[3]}}</td>
-                                            <td>{{row[4]}}</td>                                            
+                                            <td>{{row[4]}}</td>
+                                            <td>{{row[5]}}</td>                                           
                                             <td>
-                                                <form action="/viewleave/{{row[0]}}" method = "POST">
-                                                    <button name="ViewLeave" type="submit" value="{{row[0]}}" style="width:100%; margin-bottom: 5px; background-color: #0d6efd; color: white;">View Details</button>
+                                                <form action="/viewclaim/{{row[0]}}" method = "POST">
+                                                    <button name="ViewClaim" type="submit" value="{{row[0]}}" style="width:100%; margin-bottom: 5px; background-color: #0d6efd; color: white;">View Details</button>
                                                 </form>
                                             </td>
                                         </tr>
