@@ -139,9 +139,10 @@
                                     <thead>
                                         <tr>
                                             <th>Document ID</th>
-                                            <th>Document Name</th>
+                                            <th>Document Title</th>
                                             <th>Employee Name</th>
                                             <th>Upload Date</th>   
+                                            <th>Document Name</th>     
                                             <th>Action</th>                             
                                         </tr>
                                     </thead>
@@ -183,7 +184,7 @@
                                             <td>{{row[4]}}</td>                                            
                                             <td>
                                            
-                                                <form action="/downloadfile/{{row[2]}}" method = "POST">
+                                                <form action="/downloadfile/{{row[4]}}" method = "POST">
                                                     <button name="Download" type="submit" value="{{row[0]}}" style="width:100%; background-color: #1ad129; color: white;">Download</button>
                                                 </form>
                                             </td>

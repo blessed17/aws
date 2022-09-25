@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Add Leave</title>
+        <title>Add Claim</title>
         <link href="{{ url_for('static',filename='assets/css/styles.css') }}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
@@ -18,41 +18,46 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-7">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Add Leave</h3></div>
-                                    <div class="card-body">
-                                        <form autocomplete="on" method = "POST" action='/addedleave'>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Add Claim</h3></div>
+                                    <div class="card-body">                                        
+                                        <form autocomplete="on" enctype="multipart/form-data" method = "POST" action='/addedclaim'>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="emp_id" type="text" />
-                                                <label>Employee ID</label>
+                                                <input class="form-control" name="emp_id" type="text" placeholder="emp id"/>
+                                                <label for="inputDocName">Employee ID</label>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" name="date_start" type="date"/>
-                                                        <label>Leave Start From</label>
+                                                        <input class="form-control" name="date_from" type="date" placeholder="claim start from"/>
+                                                        <label for="inputDocName">Claim Start From</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating">
-                                                        <input class="form-control" name="date_end" type="date"/>
-                                                        <label>Leave End At</label>
+                                                        <input class="form-control" name="date_to" type="date" placeholder="claim end at"/>
+                                                        <label for="inputDocName">Claim End At</label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="reason" type="text" />
-                                                <label >Reason</label>
+                                                <input class="form-control" name="claim_amount" type="text" placeholder="claim amount"/>
+                                                <label for="inputDocName">Claim Amount</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" name="claim_reason" type="text" placeholder="claim reason"/>
+                                                <label for="inputDocName">Claim Reason</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <div style="padding: 0 0 0 0.75rem;">Claim Evidence Image</div>
+                                                <input type=file name="claim_evidence" style="padding: 0.15rem 0 0 0.5rem;"> <br>
                                             </div>
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid">
-                                                    <button type="submit" class="btn btn-primary btn-block">Add Leave</button>
+                                                    <button type="submit" class="btn btn-primary btn-block">Add Claim</button>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
-                                    <!-- <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="login.html">Have an account? Go to login</a></div>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
