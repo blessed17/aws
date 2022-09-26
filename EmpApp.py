@@ -368,9 +368,49 @@ def addedClaim():
 
     return redirect(url_for("displayclaim"))
 
-@app.route("/aboutus")
-def aboutUs():
-    return render_template('AboutUs.html')
+@app.route("/addattendance", methods=['GET','POST'])
+def addAttendance():
+    return render_template('AddAttendance.html')
+
+@app.route("/addedattendance", methods=['GET','POST'])
+def addedAttendance():  
+    emp_id = request.form['emp_id']
+    time_in = request.form['attd_time_in']
+    time_out = request.form['attd_time_out']
+    attd_date = request.form['attd_date']
+    (h_time_in, m_time_in) = time_in.split(':')
+    (h_time_out, m_time_out) = time_out.split(':')   
+    workingHour = (int(h_time_out) + int(m_time_out)/ 60) - (int(h_time_in) + int(m_time_in) / 60)
+
+    if(int(h_time_in)>=9 and int(m_time_in)>0):
+        status="LATE"
+    else:
+        status="ON TIME"
+
+    insert_sql = "INSERT INTO attendance VALUES (%s,%s, %s, %s, %s, %s,%s)"
+    cursor = db_conn.cursor(pymysql.cursors.DictCursor)
+    cursor.execute(insert_sql, (None,attd_date, time_in, time_out,workingHour,status,emp_id))
+    db_conn.commit()
+    cursor.close()
+    return redirect(url_for("displayAttendance"))
+
+@app.route("/displayattendance", methods=['GET','POST'])
+def displayAttendance():
+    cursor = db_conn.cursor()
+    cursor.execute("SELECT atd_id, atd_date,atd_timeIn, atd_timeOut,atd_workingHour,atd_status, CONCAT(first_name, ' ', last_name) FROM employee, attendance WHERE employee.emp_id = attendance.emp_id")
+    attendanceList = cursor.fetchall()
+    return render_template('DisplayAttendance.html', attdList = attendanceList)
+
+@app.route("/editattendance/<id>", methods=['GET', 'POST'])
+def editAttendance(id):
+    attd_id = str(id)
+    query = "SELECT * FROM attendance WHERE atd_id = %s"
+    cursor = db_conn.cursor() 
+    cursor.execute(query,attd_id)
+    data = cursor.fetchall()
+    cursor.close()
+    print(data)
+    return render_template('EditAttendance.html',attd = data[0])
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
