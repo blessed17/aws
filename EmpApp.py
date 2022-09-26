@@ -241,5 +241,179 @@ def downloadFile(url):
             raise Exception
     return redirect(url_for("displayDoc"))
 
+<<<<<<< Updated upstream
+=======
+@app.route("/displayleave", methods=['GET'])
+def displayLeave():
+    cursor = db_conn.cursor()
+    cursor.execute("Select * from leaves")
+    leaveList = cursor.fetchall()
+    print(leaveList)
+    return render_template('DisplayLeave.html', lveList = leaveList, bucketName = bucket)
+
+@app.route("/viewleave/<id>", methods=['GET', 'POST'])
+def viewLeave(id):
+    leave_id = str(id)
+    query = "SELECT * FROM leaves WHERE leave_id = %s"
+    cursor = db_conn.cursor() 
+    cursor.execute(query,leave_id)
+    data = cursor.fetchall()
+    cursor.close()
+    print(data[0])
+    return render_template('ViewLeave.html',leaves = data[0], bucketName = bucket)  
+
+@app.route("/addleave", methods=['GET','POST'])
+def addLeave():
+    return render_template('AddLeave.html')
+
+@app.route("/addedleave", methods=['GET','POST'])
+def addedLeave():
+    emp_id = request.form['emp_id']
+    date_start = request.form['date_start']
+    date_end = request.form['date_end']
+    day_count = datetime.strptime(date_end,"%Y-%m-%d") - datetime.strptime(date_start,"%Y-%m-%d")
+    reason = request.form['reason']
+    apply_date = datetime.now().strftime("%Y-%m-%d")
+
+    insert_sql = "INSERT INTO leaves VALUES (%s,%s, %s, %s, %s, %s, %s)"
+    cursor = db_conn.cursor(pymysql.cursors.DictCursor)
+    cursor.execute(insert_sql, (None,emp_id, date_start, date_end, day_count.days,reason,apply_date))
+    db_conn.commit()
+    cursor.close()
+    return redirect(url_for("displayLeave"))
+
+
+@app.route("/displayclaim", methods=['GET'])
+def displayclaim():
+    cursor = db_conn.cursor()
+    cursor.execute("Select * from claim")
+    claimList = cursor.fetchall()
+    print(claimList)
+    return render_template('DisplayClaim.html', clmList = claimList, bucketName = bucket)
+
+@app.route("/viewclaim/<id>", methods=['GET', 'POST'])
+def viewClaim(id):
+    claim_id = str(id)
+    query = "SELECT * FROM claim WHERE claim_id = %s"
+    cursor = db_conn.cursor() 
+    cursor.execute(query,claim_id)
+    data = cursor.fetchall()
+    cursor.close()
+    print(data[0])
+    return render_template('ViewClaim.html',claim = data[0], bucketName = bucket)  
+
+@app.route("/addclaim", methods=['GET','POST'])
+def addClaim():
+    return render_template('AddClaim.html')
+
+@app.route("/addedclaim", methods=['GET','POST'])
+def addedClaim():
+    emp_id = request.form['emp_id']
+    date_from = request.form['date_from']
+    date_to = request.form['date_to']
+    claim_date = datetime.now().strftime("%Y-%m-%d")    
+    claim_amount = request.form['claim_amount']
+    claim_reason = request.form['claim_reason']
+    claim_evidence = request.files['claim_evidence']
+
+    # ==================================================================================
+    insert_sql = "INSERT INTO claim VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    cursor = db_conn.cursor()
+
+    if claim_evidence.filename == "":
+        return "Please select a file"
+
+    try:
+        cursor.execute(insert_sql, (None, emp_id, date_from, date_to, claim_date, claim_amount, claim_reason, None))
+
+        db_conn.commit()
+
+        sql_select_Query = "SELECT claim_id FROM claim ORDER BY claim_id DESC LIMIT 1"
+        cursor = db_conn.cursor()
+        cursor.execute(sql_select_Query)
+
+        claim_id = cursor.fetchone()
+
+        # emp_name = "" + first_name + " " + last_name
+        # Uplaod image file in S3 #
+        claim_image_file_name_in_s3 = "claim-id-" + str(claim_id[0]) + "_image_file"+pathlib.Path(claim_evidence.filename).suffix
+        
+        update_sql = "UPDATE claim set claim_evidence =(%s) where claim_id=(%s)"
+        cursor.execute(update_sql,(claim_image_file_name_in_s3,str(claim_id[0])))
+        db_conn.commit()
+
+        s3 = boto3.resource('s3')
+
+        try:
+            print("Data inserted in MySQL RDS... uploading image to S3...")
+            s3.Bucket(custombucket).put_object(Key=claim_image_file_name_in_s3, Body=claim_evidence)
+            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
+
+            if s3_location is None:
+                s3_location = ''
+            else:
+                s3_location = '-' + s3_location
+
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                claim_image_file_name_in_s3)
+
+        except Exception as e:
+            return str(e)
+
+    finally:
+        cursor.close()
+
+    # ==================================================================================
+
+    return redirect(url_for("displayclaim"))
+
+@app.route("/addattendance", methods=['GET','POST'])
+def addAttendance():
+    return render_template('AddAttendance.html')
+
+@app.route("/addedattendance", methods=['GET','POST'])
+def addedAttendance():  
+    emp_id = request.form['emp_id']
+    time_in = request.form['attd_time_in']
+    time_out = request.form['attd_time_out']
+    attd_date = request.form['attd_date']
+    (h_time_in, m_time_in) = time_in.split(':')
+    (h_time_out, m_time_out) = time_out.split(':')   
+    workingHour = (int(h_time_out) + int(m_time_out)/ 60) - (int(h_time_in) + int(m_time_in) / 60)
+
+    if(int(h_time_in)>=9 and int(m_time_in)>0):
+        status="LATE"
+    else:
+        status="ON TIME"
+
+    insert_sql = "INSERT INTO attendance VALUES (%s,%s, %s, %s, %s, %s,%s)"
+    cursor = db_conn.cursor(pymysql.cursors.DictCursor)
+    cursor.execute(insert_sql, (None,attd_date, time_in, time_out,workingHour,status,emp_id))
+    db_conn.commit()
+    cursor.close()
+    return redirect(url_for("displayAttendance"))
+
+@app.route("/displayattendance", methods=['GET','POST'])
+def displayAttendance():
+    cursor = db_conn.cursor()
+    cursor.execute("SELECT atd_id, atd_date,atd_timeIn, atd_timeOut,atd_workingHour,atd_status, CONCAT(first_name, ' ', last_name) FROM employee, attendance WHERE employee.emp_id = attendance.emp_id")
+    attendanceList = cursor.fetchall()
+    return render_template('DisplayAttendance.html', attdList = attendanceList)
+
+@app.route("/editattendance/<id>", methods=['GET', 'POST'])
+def editAttendance(id):
+    attd_id = str(id)
+    query = "SELECT * FROM attendance WHERE atd_id = %s"
+    cursor = db_conn.cursor() 
+    cursor.execute(query,attd_id)
+    data = cursor.fetchall()
+    cursor.close()
+    print(data)
+    return render_template('EditAttendance.html',attd = data[0])
+
+>>>>>>> Stashed changes
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
