@@ -6,9 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Display Employee</title>
+        <title>Employee Leaves</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="{{ url_for('static',filename='assets/css/styles.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static',filename='assets/css/Home.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static',filename='assets/css/nicepage.css') }}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -117,91 +119,51 @@
 
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Tables</li>
-                        </ol>
-                        <!-- <div class="card mb-4">
-                            <div class="card-body">
-                                DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
-                                <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
-                                .
+                    <section class="u-align-center u-clearfix u-section-1" id="carousel_aa32">
+                        <div class="u-expanded-width u-palette-3-base u-shape u-shape-rectangle u-shape-1"></div>
+                        <h2 class="u-custom-font u-font-montserrat u-text u-text-body-alt-color u-text-default u-text-1">Meet The Team <br>Our Professionals
+                        </h2>
+                        <div class="u-list u-list-1">
+                          <div class="u-repeater u-repeater-1">
+                            <div class="u-align-center u-container-style u-list-item u-repeater-item u-white u-list-item-1">
+                              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+                                <img alt="" class="u-image u-image-default u-image-1" src="{{ url_for('static',filename='assets/images/KhuWeeMing.png') }}" data-image-width="404" data-image-height="404" >
+                                <h3 class="u-align-center u-custom-font u-font-oswald u-text u-text-2">Khu Wee Ming</h3>
+                                <p class="u-align-center u-text u-text-palette-3-base u-text-3">Team Leader</p>
+                                <p class="u-align-center u-text u-text-4">Loney guy</p>
+                                <br>
+                                <form>
+                                  <button type="submit" style="background-color:gold; color: white;">View more</button>
+                                </form>
+                              </div>
                             </div>
-                        </div> -->
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Employee List
+                            <div class="u-align-center u-container-style u-list-item u-repeater-item u-white u-list-item-2">
+                              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
+                                <img alt="" class="u-image u-image-default u-image-2" src="{{ url_for('static',filename='assets/images/TanHaoYou.png') }}" data-image-width="404" data-image-height="404">
+                                <h3 class="u-align-center u-custom-font u-font-oswald u-text u-text-5">Tan Hao You</h3>
+                                <p class="u-align-center u-text u-text-palette-3-base u-text-6">Team Member</p>
+                                <p class="u-align-center u-text u-text-7">Loney guy</p>
+                                <br>
+                                <form>
+                                  <button type="submit" style="background-color:gold; color: white;">View more</button>
+                                </form>
+                              </div>
                             </div>
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>Image</th>
-                                            <th>Employee ID</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Primary Skills</th>
-                                            <th>Location</th>
-                                            <th>Action</th>                             
-                                        </tr>
-                                    </thead>
-                                    <!-- <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </tfoot> -->
-
-                                    <!-- below one need to change -->
-
-                                    <tbody>
-                                        <!-- <tr>
-                                            <td><img src="yx.png" alt="Avatar" style="height:35px; width:35px; border-radius: 50%;"></td>
-                                            <td>11</td>
-                                            <td>Tan</td>
-                                            <td>Hao You</td>
-                                            <td>Play Game</td>
-                                            <td>Taman Melati</td>
-                                            <td>
-                                                <form action="/action_page.php" method="get">
-                                                <button name="EditEmployee" type="submit" value=>Edit</button>
-                                                <button name="DeleteEmployee" type="submit" value=>Delete</button>
-                                                </form>
-                                            </td>
-                                        </tr> -->
-                                        
-                                        {% for row in empList %}
-                                        <tr>
-                                            <td><img src="https://{{bucketName}}.s3.amazonaws.com/{{row[5]}}" alt="Avatar" style="height:35px; width:35px; border-radius: 50%;"></td>
-                                            <td>{{row[0]}}</td>
-                                            <td>{{row[1]}}</td>
-                                            <td>{{row[2]}}</td>
-                                            <td>{{row[3]}}</td>
-                                            <td>{{row[4]}}</td>                                            
-                                            <td>
-                                           
-                                                <form action="/editemp/{{row[0]}}" method = "POST">
-                                                    <button name="EditEmployee" type="submit" value="{{row[0]}}" style="width:100%; margin-bottom: 5px; background-color: #0d6efd; color: white;">Edit</button>
-                                                </form>
-
-                                                <form action="/deleteemp" method = "POST">
-                                                    <button name="DeleteEmployee" type="submit" value="{{row[0]}}" style="width:100%; background-color: #d11a2a; color: white;">Delete</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+                            <div class="u-align-center u-container-style u-list-item u-repeater-item u-white u-list-item-3">
+                              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-3">
+                                <img alt="" class="u-image u-image-default u-image-3" src="{{ url_for('static',filename='assets/images/YeKuanLiang.png') }}" data-image-width="404" data-image-height="404">
+                                <h3 class="u-align-center u-custom-font u-font-oswald u-text u-text-8">Ye Kuan Liang</h3>
+                                <p class="u-align-center u-text u-text-palette-3-base u-text-9">Team Member</p>
+                                <p class="u-align-center u-text u-text-10">Go Port Dickson</p>
+                                <br>
+                                <form>
+                                  <button type="submit" style="background-color:gold; color: white;">View more</button>
+                                </form>
+                              </div>
                             </div>
+                          </div>
                         </div>
-                    </div>
+                      </section>
                 </main>
 
 
