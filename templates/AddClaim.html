@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Edit Employee</title>
+        <title>Add Claim</title>
         <link href="{{ url_for('static',filename='assets/css/styles.css') }}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
@@ -18,47 +18,42 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-7">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Edit Employee</h3></div>
-                                    <div class="card-body">
-                                        <form action="/updateemp/{{employee[0]}}" method="POST" enctype="multipart/form-data">
-                                            <div class="upload_image_container" align="center">
-                                                <img id= display_uploaded_img src="https://{{bucketName}}.s3.amazonaws.com/{{employee[5]}}" alt="Employee Profile Picture"><br><br>
-                                                <input type="file" id="upload_image" name="emp_image_file" hidden class="btn" onchange="showChanges(event)">
-                                                <label for="upload_image" class="upload">Change Profile Picture</label>
-                                            </div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Add Claim</h3></div>
+                                    <div class="card-body">                                        
+                                        <form autocomplete="on" enctype="multipart/form-data" method = "POST" action='/addedclaim'>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="emp_id" type="text" placeholder="ID" value="{{employee[0]}}" disabled/>
-                                                <label for="empID">Employee ID</label>
+                                                <input class="form-control" name="emp_id" type="text" placeholder="emp id"/>
+                                                <label for="inputDocName">Employee ID</label>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" name="first_name" type="text" placeholder="Enter your first name" value="{{employee[1]}}"/>
-                                                        <label for="inputFirstName">First name</label>
+                                                        <input class="form-control" name="date_from" type="date" placeholder="claim start from"/>
+                                                        <label for="inputDocName">Claim Start From</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating">
-                                                        <input class="form-control" name="last_name" type="text" placeholder="Enter your last name" value="{{employee[2]}}"/>
-                                                        <label for="inputLastName">Last name</label>
+                                                        <input class="form-control" name="date_to" type="date" placeholder="claim end at"/>
+                                                        <label for="inputDocName">Claim End At</label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="pri_skill" type="text" placeholder="Enter your primary skill" value="{{employee[3]}}"/>
-                                                <label for="primaryskill">Primary Skill</label>
+                                                <input class="form-control" name="claim_amount" type="text" placeholder="claim amount"/>
+                                                <label for="inputDocName">Claim Amount</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="location" type="text" placeholder="Enter your location" value="{{employee[4]}}"/>
-                                                <label for="location">Location</label>
+                                                <input class="form-control" name="claim_reason" type="text" placeholder="claim reason"/>
+                                                <label for="inputDocName">Claim Reason</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <div style="padding: 0 0 0 0.75rem;">Claim Evidence Image</div>
+                                                <input type=file name="claim_evidence" style="padding: 0.15rem 0 0 0.5rem;"> <br>
                                             </div>
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid">
-                                                    <button class="btn btn-primary btn-sm" onClick="this.form.reset()">Cancel</a>
-                                                </div>
-                                                <br>
-                                                <div class="d-grid">
-                                                    <button type="submit" class="btn btn-primary btn-sm" >Save</a>
+                                                    <button type="submit" class="btn btn-primary btn-block">Add Claim</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -73,7 +68,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
+                            <div class="text-muted">Copyright &copy; TWL Website 2022</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;

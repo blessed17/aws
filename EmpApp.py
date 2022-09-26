@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+from datetime import datetime, date
 from pymysql import connections
 import pymysql
 import botocore
@@ -24,7 +25,7 @@ output = {}
 table = 'employee'
 
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/addemp", methods=['GET', 'POST'])
 def home():
     return render_template('AddEmp.html')
 
@@ -219,7 +220,6 @@ def updateEmployee(id):
 def uploadFile():        
     return render_template('UploadFile.html')
 
-
 @app.route("/displaydoc", methods=['POST','GET'])
 def displayDoc():
     cursor = db_conn.cursor()
@@ -241,8 +241,6 @@ def downloadFile(url):
             raise Exception
     return redirect(url_for("displayDoc"))
 
-<<<<<<< Updated upstream
-=======
 @app.route("/displayleave", methods=['GET'])
 def displayLeave():
     cursor = db_conn.cursor()
@@ -414,6 +412,5 @@ def editAttendance(id):
     print(data)
     return render_template('EditAttendance.html',attd = data[0])
 
->>>>>>> Stashed changes
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

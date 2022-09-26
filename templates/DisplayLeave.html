@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Display Employee</title>
+        <title>Employee Leaves</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="{{ url_for('static',filename='assets/css/styles.css') }}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -118,81 +118,39 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="mt-4">Leaves</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Tables</li>
+                            <li class="breadcrumb-item active">Leaves</li>
                         </ol>
-                        <!-- <div class="card mb-4">
-                            <div class="card-body">
-                                DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
-                                <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
-                                .
-                            </div>
-                        </div> -->
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Employee List
+                                Leave List
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Image</th>
+                                            <th>Leave ID</th>
                                             <th>Employee ID</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Primary Skills</th>
-                                            <th>Location</th>
+                                            <th>Start Leave Date</th>
+                                            <th>End Leave Date</th>
+                                            <th>Leave Days</th>
                                             <th>Action</th>                             
                                         </tr>
                                     </thead>
-                                    <!-- <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </tfoot> -->
-
-                                    <!-- below one need to change -->
-
                                     <tbody>
-                                        <!-- <tr>
-                                            <td><img src="yx.png" alt="Avatar" style="height:35px; width:35px; border-radius: 50%;"></td>
-                                            <td>11</td>
-                                            <td>Tan</td>
-                                            <td>Hao You</td>
-                                            <td>Play Game</td>
-                                            <td>Taman Melati</td>
-                                            <td>
-                                                <form action="/action_page.php" method="get">
-                                                <button name="EditEmployee" type="submit" value=>Edit</button>
-                                                <button name="DeleteEmployee" type="submit" value=>Delete</button>
-                                                </form>
-                                            </td>
-                                        </tr> -->
-                                        
-                                        {% for row in empList %}
+                                        {% for row in lveList %}
                                         <tr>
-                                            <td><img src="https://{{bucketName}}.s3.amazonaws.com/{{row[5]}}" alt="Avatar" style="height:35px; width:35px; border-radius: 50%;"></td>
                                             <td>{{row[0]}}</td>
                                             <td>{{row[1]}}</td>
                                             <td>{{row[2]}}</td>
                                             <td>{{row[3]}}</td>
                                             <td>{{row[4]}}</td>                                            
                                             <td>
-                                           
-                                                <form action="/editemp/{{row[0]}}" method = "POST">
-                                                    <button name="EditEmployee" type="submit" value="{{row[0]}}" style="width:100%; margin-bottom: 5px; background-color: #0d6efd; color: white;">Edit</button>
-                                                </form>
-
-                                                <form action="/deleteemp" method = "POST">
-                                                    <button name="DeleteEmployee" type="submit" value="{{row[0]}}" style="width:100%; background-color: #d11a2a; color: white;">Delete</button>
+                                                <form action="/viewleave/{{row[0]}}" method = "POST">
+                                                    <button name="ViewLeave" type="submit" value="{{row[0]}}" style="width:100%; margin-bottom: 5px; background-color: #0d6efd; color: white;">View Details</button>
                                                 </form>
                                             </td>
                                         </tr>
