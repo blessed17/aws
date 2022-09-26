@@ -471,12 +471,11 @@ def updateAttendance(id):
     else:
                 
         attd_id = id
-        time_in = request.form['time_in']
-        time_out = request.form['time_out']
+        time_in = request.form['time_in'][:5]
+        time_out = request.form['time_out'][:5]
         date = request.form['date']
-        print(time_in)
-        (h_time_in, m_time_in,s_time_in) = time_in.split(':')
-        (h_time_out, m_time_out,s_time_out) = time_out.split(':')
+        (h_time_in, m_time_in) = time_in.split(':')
+        (h_time_out, m_time_out) = time_out.split(':')
         workingHour = (int(h_time_out) + int(m_time_out) / 60) - (int(h_time_in) + int(m_time_in) / 60)
 
         if (int(h_time_in) >= 9 and int(m_time_in) > 0):
