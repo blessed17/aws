@@ -57,6 +57,9 @@ def getEmp():
             print("Get data...")
             return render_template('GetEmpOutput.html', id=emp_id, fname=first_name, lname=last_name, interest=pri_skill, location=location)
 
+@app.route("/")
+def dashboard():
+    return render_template('TanHaoYou.html')
 
 @app.route("/getempout")
 def getEmpOutput():
