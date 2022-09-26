@@ -67,6 +67,18 @@ def getEmpOutput():
 def aboutUs():
     return render_template('AboutUs.html')
 
+@app.route("/khuweeming")
+def khuWeeMing():
+    return render_template('KhuWeeMing.html')
+
+@app.route("/tanhaoyou")
+def tanHaoYou():
+    return render_template('TanHaoYou.html')
+
+@app.route("/yekuanliang")
+def yeKuanLiang():
+    return render_template('YeKuanLiang.html')
+
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
     # emp_id = request.form['emp_id']
