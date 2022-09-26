@@ -66,6 +66,18 @@ def about():
    return render_template('www.intellipaat.com')
 
 
+@app.route("/khuweeming")
+def khuWeeMing():
+    return render_template('KhuWeeMing.html')
+
+@app.route("/tanhaoyou")
+def tanHaoYou():
+    return render_template('TanHaoYou.html')
+
+@app.route("/yekuanliang")
+def yeKuanLiang():
+    return render_template('YeKuanLiang.html')
+
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
     # emp_id = request.form['emp_id']
