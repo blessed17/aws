@@ -151,6 +151,7 @@
                                 </a>
                             </nav>
                         </div>
+                        <a class="nav-link" href="aboutus"><div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>About Us</a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
@@ -207,14 +208,9 @@
                                         <td>
 
                                             <form action="/editattendance/{{row[0]}}" method="POST">
-                                                <button name="EditAttendance" type="submit" value="{{row[0]}}"
-                                                    style="width:100%; margin-bottom: 5px; background-color: #0d6efd; color: white;">Edit</button>
+                                                <button style="width: 50%;display: block;margin: auto;" name="EditAttendance" type="submit" value="{{row[0]}}" class="btn btn-primary btn-sm">Edit</button>
                                             </form>
 
-                                            <form action="/deleteemp" method="POST">
-                                                <button name="DeleteEmployee" type="submit" value="{{row[0]}}"
-                                                    style="width:100%; background-color: #d11a2a; color: white;">Delete</button>
-                                            </form>
                                         </td>
                                     </tr>
                                     {% endfor %}
