@@ -257,7 +257,6 @@ def displayDoc():
     cursor = db_conn.cursor()
     cursor.execute("SELECT doc_id, doc_name, CONCAT(first_name, ' ', last_name),upload_date, doc_url FROM employee, document WHERE employee.emp_id = document.emp_id")
     documentList = cursor.fetchall()
-    print(documentList)
     return render_template('DisplayFile.html', docList=documentList, bucketName=bucket)
 
 
