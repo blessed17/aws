@@ -237,11 +237,11 @@
                                         <td>
 
                                             <form action="/downloadfile/{{row[4]}}" method="POST">
-                                                <button name="Download" id="clickMe" onclick="return showDiv();" value="Submit"
+                                                <a href="https://khuweeming-bucket.s3.amazonaws.com/{{row[4]}}" name="Download" id="clickMe" value="Submit"
                                                     type="submit" value="{{row[0]}}"
                                                     style="width:30%; background-color: #1ad129; color: white;display:inline-block;"><i
                                                         class="material-icons"
-                                                        style="display:inline-block; vertical-align: middle;">file_download</i></button>
+                                                        style="display:inline-block; vertical-align: middle;">file_download</i></a>
                                             </form>
                                         </td>
                                     </tr>
@@ -268,14 +268,14 @@
             </footer>
         </div>
     </div>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         function showDiv() {
 
             alert("File is being download!");
             return true;
 
         }
-    </script>
+    </script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
     <script src="{{ url_for('static',filename='assets/js/scripts.js') }}"></script>
