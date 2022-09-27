@@ -57,6 +57,9 @@ def getEmp():
             print("Get data...")
             return render_template('GetEmpOutput.html', id=emp_id, fname=first_name, lname=last_name, interest=pri_skill, location=location)
 
+@app.route("/")
+def dashboard():
+    return render_template('Dashboard.html')
 
 @app.route("/getempout")
 def getEmpOutput():
@@ -66,6 +69,18 @@ def getEmpOutput():
 @app.route("/aboutus")
 def aboutUs():
     return render_template('AboutUs.html')
+
+@app.route("/khuweeming")
+def khuWeeMing():
+    return render_template('KhuWeeMing.html')
+
+@app.route("/tanhaoyou")
+def tanHaoYou():
+    return render_template('TanHaoYou.html')
+
+@app.route("/yekuanliang")
+def yeKuanLiang():
+    return render_template('YeKuanLiang.html')
 
 @app.route("/addemp", methods=['POST'])
 def AddEmp():

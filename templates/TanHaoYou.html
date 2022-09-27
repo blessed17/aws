@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Tan Hao You Portfolio</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free Website Template" name="keywords">
+        <meta content="Free Website Template" name="description">
+
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="{{ url_for('static',filename='assets/lib/animate/animate.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static',filename='assets/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static',filename='assets/lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">        
+
+        <!-- Template Stylesheet -->
+        <link href="{{ url_for('static',filename='assets/css/style.css') }}" rel="stylesheet">
+       <style>
+        body .hero{
+            background: linear-gradient(rgba(239, 35, 60, .95), rgba(239, 35, 60, .95)), url("{{ url_for('static', filename='assets/images/hero-bg.jpg') }}");
+        }
+       </style> 
+    </head>
+
+    <body data-spy="scroll" data-target=".navbar" data-offset="51">
+        <!-- Hero Start -->
+        <div class="hero" id="home" >
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="hero-content">
+                            <div class="hero-text">
+                                <p>I'm</p>
+                                <h1>Tan Hao You</h1>
+                                <h2></h2>
+                                <div class="typed-text">Chief Financial Officer (CFO)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 d-none d-md-block">
+                        <div class="hero-image">
+                            <img src="{{ url_for('static',filename='assets/images/tan_smart_removebg.png') }}" alt="Hero Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Hero End -->
+
+
+        <!-- About Start -->
+        <div class="about wow fadeInUp" data-wow-delay="0.1s" id="about">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="about-img">
+                            <img src="{{ url_for('static',filename='assets/images/tan_about.png') }}" alt="Image">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="about-content">
+                            <div class="section-header text-left">
+                                <p><h2>Learn About Me</h2></p>
+                            </div>
+                            <div class="about-text">
+                                <p>
+                                    Dr. Tan Hao You, graduate from University of Strathclyde with first class of honours in Doctor of Philosophy in Accounting & Finance and also law programme.He had obtained AICPA Outstanding Young CPA Award at year 2017. He had 4 years of working experience as Accounting & Finance Director in The Walt DIsney Company.
+                                </p>
+                            </div>
+                            <div class="team-social">
+                                <a class="btn" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn" href=""><i class="fab fa-linkedin-in"></i></a>
+                                <a class="btn" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+        
+        
+        <!-- Service Start -->
+        <div class="service" id="service">
+            <div class="container">
+                <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
+                    <p>What I do</p>
+                    <h2>Awesome Quality Services</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.0s">
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fa fa-laptop"></i>
+                            </div>
+                            <div class="service-text">
+                                <h3>Web Design</h3>
+                                <p>
+                                    plan, create and code internet sites and web pages, many of which combine text with sounds, pictures, graphics and video clips.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fa fa-laptop-code"></i>
+                            </div>
+                            <div class="service-text">
+                                <h3>Web Development</h3>
+                                <p>
+                                    the building and maintenance of websites
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fa fa-calculator"></i>
+                            </div>
+                            <div class="service-text">
+                                <h3>Accounting</h3>
+                                <p>
+                                    record transactions, compile and analyze data, perform audits, assist with budgets and financial forecasting, compute taxes
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fab fa-apple"></i>
+                            </div>
+                            <div class="service-text">
+                                <h3>Apps Development</h3>
+                                <p>
+                                    creating a computer program or a set of programs to perform the different tasks that a business requires
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Service End -->
+        
+        
+         <!-- Experience Start -->
+        <div class="experience" id="experience">
+            <div class="container">
+                <header class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
+                    <p><h2>Timeline</h2></p>
+                </header>
+                <div class="timeline">
+                    <div class="timeline-item left wow slideInLeft" data-wow-delay="0.1s">
+                        <div class="timeline-text">
+                            <div class="timeline-date">2009</div>
+                            <h2>Graduate as PhD</h2>
+                            <p>
+                                Graduate from University of Strathclyde with first class of honours in Doctor of Philosophy in Accounting & Finance and also law programme.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right wow slideInRight" data-wow-delay="0.1s">
+                        <div class="timeline-text">
+                            <div class="timeline-date">2010 - 2013</div>
+                            <h2>Accountant</h2>
+                            <p>
+                                Work as Accountant in The Walt DIsney Company
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left wow slideInLeft" data-wow-delay="0.1s">
+                        <div class="timeline-text">
+                            <div class="timeline-date">2014-2017</div>
+                            <h2>Accounting & Finance Director</h2>
+                            <p>
+                                Work as Accounting & Finance Director in The Walt DIsney Company
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right wow slideInRight" data-wow-delay="0.1s">
+                        <div class="timeline-text">
+                            <div class="timeline-date">2017</div>
+                            <h2>AICPA Outstanding Young CPA Award</h2>
+                            <p>
+                                Obtain AICPA Outstanding Young CPA Award at year 2017
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left wow slideInLeft" data-wow-delay="0.1s">
+                        <div class="timeline-text">
+                            <div class="timeline-date">2018</div>
+                            <h2>Web Developer</h2>
+                            <p>
+                                Work as Web Developer in KHL Inc.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right wow slideInRight" data-wow-delay="0.1s">
+                        <div class="timeline-text">
+                            <div class="timeline-date">2019-2020</div>
+                            <h2>Accountant</h2>
+                            <p>
+                                Work as Accountant in KHL Inc.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left wow slideInLeft" data-wow-delay="0.1s">
+                        <div class="timeline-text">
+                            <div class="timeline-date">2021 - Currently</div>
+                            <h2>Accounting & Finance Officer (AFO)</h2>
+                            <p>
+                                Work as AFO in KHL Inc.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Job Experience End -->
+        <!-- Team Start -->
+        <div class="team" id="team">
+            <div class="container">
+                <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
+                    <p>My Team</p>
+                    <h2>Expert Team Members</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="team-item">
+                            <div class="team-img">
+                                <img src="{{ url_for('static',filename='assets/images/ming_team.png') }}" alt="Image">
+                            </div>
+                            <div class="team-text">
+                                <h2>Khu Wee Ming</h2>
+                                <h4>Chief Executive Officer (CEO)</h4>
+                                <p>
+                                    I am ming gor
+                                </p>
+                                <div class="team-social">
+                                    <a class="btn" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="btn" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn" href=""><i class="fab fa-linkedin-in"></i></a>
+                                    <a class="btn" href=""><i class="fab fa-instagram"></i></a>
+                                </div>
+                                <br>
+                                <form action="/khuweeming">
+                                    <button type="submit">View More</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="team-item">
+                            <div class="team-img">
+                                <img src="{{ url_for('static',filename='assets/images/liang_team.png') }}" alt="Image">
+                            </div>
+                            <div class="team-text">
+                                <h2>Ye Kuan Liang</h2>
+                                <h4>Web Developer</h4>
+                                <p>
+                                    I am Liang Zaii
+                                </p>
+                                <div class="team-social">
+                                    <a class="btn" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="btn" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn" href=""><i class="fab fa-linkedin-in"></i></a>
+                                    <a class="btn" href=""><i class="fab fa-instagram"></i></a>
+                                </div>
+                                <br>
+                                <form action="/yekuanliang">
+                                    <button type="submit">View More</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Team End -->
+    
+        <!-- Back to top button -->
+        <a href="#" class="btn back-to-top"><i class="fa fa-chevron-up"></i></a>
+        
+        
+        <!-- Pre Loader -->
+        <div id="loader" class="show">
+            <div class="loader"></div>
+        </div>
+    </div>
+
+        
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="{{ url_for('static',filename='assets/lib/easing/easing.min.js') }}"></script>
+        <script src="{{ url_for('static',filename='assets/lib/wow/wow.min.js') }}"></script>
+        <script src="{{ url_for('static',filename='assets/lib/waypoints/waypoints.min.js') }}"></script>
+        <script src="{{ url_for('static',filename='assets/lib/typed/typed.min.js') }}"></script>
+        <script src="{{ url_for('static',filename='assets/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+        <script src="{{ url_for('static',filename='assets/lib/isotope/isotope.pkgd.min.js') }}"></script>
+        <script src="{{ url_for('static',filename='assets/js/main.js') }}"></script>
+        
+        <!-- Template Javascript -->
+        <script src="{{ url_for('static',filename='assets/lib/lightbox/js/lightbox.min.js') }}"></script>
+    </body>
+</html>

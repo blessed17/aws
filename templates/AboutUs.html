@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Employee Leaves</title>
+        <title>About Us</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="{{ url_for('static',filename='assets/css/styles.css') }}" rel="stylesheet" />
         <link href="{{ url_for('static',filename='assets/css/Home.css') }}" rel="stylesheet" />
@@ -45,7 +45,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="/">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
@@ -129,10 +129,10 @@
                               <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
                                 <img alt="" class="u-image u-image-default u-image-1" src="{{ url_for('static',filename='assets/images/KhuWeeMing.png') }}" data-image-width="404" data-image-height="404" >
                                 <h3 class="u-align-center u-custom-font u-font-oswald u-text u-text-2">Khu Wee Ming</h3>
-                                <p class="u-align-center u-text u-text-palette-3-base u-text-3">Team Leader</p>
+                                <p class="u-align-center u-text u-text-palette-3-base u-text-3">Chief Executive Officer (CEO)</p>
                                 <p class="u-align-center u-text u-text-4">Loney guy</p>
                                 <br>
-                                <form>
+                                <form action="/khuweeming" method = "GET">
                                   <button type="submit" style="background-color:gold; color: white;">View more</button>
                                 </form>
                               </div>
@@ -141,10 +141,10 @@
                               <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
                                 <img alt="" class="u-image u-image-default u-image-2" src="{{ url_for('static',filename='assets/images/TanHaoYou.png') }}" data-image-width="404" data-image-height="404">
                                 <h3 class="u-align-center u-custom-font u-font-oswald u-text u-text-5">Tan Hao You</h3>
-                                <p class="u-align-center u-text u-text-palette-3-base u-text-6">Team Member</p>
+                                <p class="u-align-center u-text u-text-palette-3-base u-text-6">Chief Financial Officer (CFO)</p>
                                 <p class="u-align-center u-text u-text-7">Loney guy</p>
                                 <br>
-                                <form>
+                                <form action="/tanhaoyou" method = "GET">
                                   <button type="submit" style="background-color:gold; color: white;">View more</button>
                                 </form>
                               </div>
@@ -156,7 +156,7 @@
                                 <p class="u-align-center u-text u-text-palette-3-base u-text-9">Team Member</p>
                                 <p class="u-align-center u-text u-text-10">Go Port Dickson</p>
                                 <br>
-                                <form>
+                                <form action="/yekuanliang" method = "GET">
                                   <button type="submit" style="background-color:gold; color: white;">View more</button>
                                 </form>
                               </div>
@@ -170,7 +170,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
+                            <div class="text-muted">Copyright &copy; KHL Inc. 2022</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
