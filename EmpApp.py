@@ -82,6 +82,14 @@ def tanHaoYou():
 def yeKuanLiang():
     return render_template('YeKuanLiang.html')
 
+@app.route("/displayemp", methods=['GET'])
+def displayEmployee():
+    cursor = db_conn.cursor()
+    cursor.execute("Select * from employee")
+    employeeList = cursor.fetchall()
+    print(employeeList)
+    return render_template('DisplayEmp.html', empList=employeeList, bucketName=bucket)
+
 @app.route("/addedemp", methods=['POST'])
 def AddedEmp():
     # emp_id = request.form['emp_id']
@@ -147,16 +155,7 @@ def AddedEmp():
         cursor.close()
 
     print("all modification done...")
-    return render_template('AddEmpOutput.html', name=emp_name)
-
-
-@app.route("/displayemp", methods=['GET'])
-def displayEmployee():
-    cursor = db_conn.cursor()
-    cursor.execute("Select * from employee")
-    employeeList = cursor.fetchall()
-    print(employeeList)
-    return render_template('DisplayEmp.html', empList=employeeList, bucketName=bucket)
+    return redirect(url_for("displayEmployee"))
 
 
 @app.route("/deleteemp", methods=['GET', 'POST'])
@@ -326,23 +325,6 @@ def displayDoc():
     documentList = cursor.fetchall()
     return render_template('DisplayFile.html', docList=documentList, bucketName=bucket)
 
-
-@app.route("/downloadfile/<url>", methods=['POST', 'GET'])
-def downloadFile(url):
-    s3 = boto3.client('s3')
-    #path = "C:\\Users\\khu\\Downloads\\"
-    #os.chdir(path)
-    # s3 = boto3.resource('s3')
-    saveUrl = r'C:/Users/khu/Downloads/'+url
-    try:
-        #s3.download_file(Bucket=custombucket, Key=url, Filename=url)
-        s3.download_file(custombucket, url, saveUrl)
-    except botocore.exceptions.ClientError as e:
-        if e.response['Error']['Code'] == "404":
-            print("The object does not exist.")
-        else:
-            raise Exception
-    return redirect(url_for("displayDoc"))
 
 @app.route("/displayleave", methods=['GET'])
 def displayLeave():
