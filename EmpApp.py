@@ -82,8 +82,8 @@ def tanHaoYou():
 def yeKuanLiang():
     return render_template('YeKuanLiang.html')
 
-@app.route("/addemp", methods=['POST'])
-def AddEmp():
+@app.route("/addedemp", methods=['POST'])
+def AddedEmp():
     # emp_id = request.form['emp_id']
     first_name = request.form['first_name']
     last_name = request.form['last_name']
@@ -331,17 +331,16 @@ def displayDoc():
 def downloadFile(url):
     s3 = boto3.client('s3')
     # s3 = boto3.resource('s3')
-    # saveUrl = "../../../Downloads/"+url
+    saveUrl = "../../../../"+url
     try:
-        s3.download_file(Bucket=custombucket, Key=url, Filename=url)
-        # s3.Bucket(custombucket).download_file(url, url)
+        #s3.download_file(Bucket=custombucket, Key=url, Filename=url)
+        s3.download_file(custombucket, url, saveUrl)
     except botocore.exceptions.ClientError as e:
         if e.response['Error']['Code'] == "404":
             print("The object does not exist.")
         else:
             raise Exception
     return redirect(url_for("displayDoc"))
-
 
 @app.route("/displayleave", methods=['GET'])
 def displayLeave():
