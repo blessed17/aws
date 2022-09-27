@@ -59,7 +59,7 @@ def getEmp():
 
 @app.route("/")
 def dashboard():
-    return render_template('TanHaoYou.html')
+    return render_template('Dashboard.html')
 
 @app.route("/getempout")
 def getEmpOutput():
