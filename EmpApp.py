@@ -329,19 +329,18 @@ def displayDoc():
 
 @app.route("/downloadfile/<url>", methods=['POST', 'GET'])
 def downloadFile(url):
-    # s3 = boto3.client('s3')
-    s3 = boto3.resource('s3')
-    # saveUrl = "../../../Downloads/"+url
+    s3 = boto3.client('s3')
+    # s3 = boto3.resource('s3')
+    saveUrl = "../../../../"+url
     try:
-        # s3.download_file(custombucket, url, saveUrl)
-        s3.Bucket(custombucket).download_file(url, url)
+        #s3.download_file(Bucket=custombucket, Key=url, Filename=url)
+        s3.download_file(custombucket, url, saveUrl)
     except botocore.exceptions.ClientError as e:
         if e.response['Error']['Code'] == "404":
             print("The object does not exist.")
         else:
             raise Exception
     return redirect(url_for("displayDoc"))
-
 
 @app.route("/displayleave", methods=['GET'])
 def displayLeave():
