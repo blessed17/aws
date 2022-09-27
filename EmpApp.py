@@ -82,8 +82,8 @@ def tanHaoYou():
 def yeKuanLiang():
     return render_template('YeKuanLiang.html')
 
-@app.route("/addemp", methods=['POST'])
-def AddEmp():
+@app.route("/addedemp", methods=['POST'])
+def AddedEmp():
     # emp_id = request.form['emp_id']
     first_name = request.form['first_name']
     last_name = request.form['last_name']
