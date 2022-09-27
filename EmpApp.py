@@ -333,7 +333,7 @@ def downloadFile(url):
     # s3 = boto3.resource('s3')
     # saveUrl = "../../../Downloads/"+url
     try:
-        s3.download_file(custombucket, url)
+        s3.download_file(Bucket=custombucket, Key=url, Filename=url)
         # s3.Bucket(custombucket).download_file(url, url)
     except botocore.exceptions.ClientError as e:
         if e.response['Error']['Code'] == "404":
