@@ -252,6 +252,73 @@ def uploadFile():
     return render_template('UploadFile.html')
 
 
+@app.route("/uploadedfile", methods=['GET', 'POST'])
+def uploadedFile():
+    doc_name = request.form['docName']
+    doc_url = request.files['emp_image_file']
+    upload_date = datetime.now().strftime("%Y-%m-%d")    
+    emp_id = request.form['empID']
+
+    # ==================================================================================
+    insert_sql = "INSERT INTO document VALUES (%s, %s, %s, %s, %s)"
+    cursor = db_conn.cursor()
+
+    if doc_url.filename == "":
+        return "Please select a file"
+
+    try:
+        cursor.execute(insert_sql, (None, doc_name, None, upload_date, emp_id))
+        db_conn.commit()
+
+        sql_select_Query = "SELECT doc_id FROM document ORDER BY doc_id DESC LIMIT 1"
+        cursor = db_conn.cursor()
+        cursor.execute(sql_select_Query)
+
+        doc_id = cursor.fetchone()
+
+        # emp_name = "" + first_name + " " + last_name
+        # Uplaod image file in S3 #
+        upload_file_name_in_s3 = "uploadfile-id-" + \
+            str(doc_id[0]) + "_image_file" + \
+            pathlib.Path(doc_url.filename).suffix
+
+        update_sql = "UPDATE document set doc_url =(%s) where doc_id=(%s)"
+        cursor.execute(
+            update_sql, (upload_file_name_in_s3, str(doc_id[0])))
+        db_conn.commit()
+
+        s3 = boto3.resource('s3')
+
+        try:
+            print("Data inserted in MySQL RDS... uploading image to S3...")
+            s3.Bucket(custombucket).put_object(
+                Key=upload_file_name_in_s3, Body=doc_url)
+            bucket_location = boto3.client(
+                's3').get_bucket_location(Bucket=custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
+
+            if s3_location is None:
+                s3_location = ''
+            else:
+                s3_location = '-' + s3_location
+
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                upload_file_name_in_s3)
+
+        except Exception as e:
+            return str(e)
+
+    finally:
+        cursor.close()
+
+    # ==================================================================================
+    return redirect(url_for("displayDoc"))
+
+
+
+
 @app.route("/displaydoc", methods=['POST', 'GET'])
 def displayDoc():
     cursor = db_conn.cursor()
