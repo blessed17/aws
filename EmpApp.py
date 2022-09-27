@@ -263,8 +263,15 @@ def displayDoc():
 @app.route("/downloadfile/<url>", methods=['POST', 'GET'])
 def downloadFile(url):
     s3 = boto3.client('s3')
+<<<<<<< Updated upstream
     saveUrl = "../../../Downloads/"+url
     try:
+=======
+    # s3 = boto3.resource('s3')
+    saveUrl = "../../../../"+url
+    try:
+        #s3.download_file(Bucket=custombucket, Key=url, Filename=url)
+>>>>>>> Stashed changes
         s3.download_file(custombucket, url, saveUrl)
     except botocore.exceptions.ClientError as e:
         if e.response['Error']['Code'] == "404":
