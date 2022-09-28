@@ -357,8 +357,7 @@ def addedLeave():
     emp_id = request.form['emp_id']
     date_start = request.form['date_start']
     date_end = request.form['date_end']
-    day_count = datetime.strptime(
-        date_end, "%Y-%m-%d") - datetime.strptime(date_start, "%Y-%m-%d")
+    day_count = datetime.strptime(date_end, "%Y-%m-%d") - datetime.strptime(date_start, "%Y-%m-%d") + 1
     reason = request.form['reason']
     apply_date = datetime.now().strftime("%Y-%m-%d")
 
