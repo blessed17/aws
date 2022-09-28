@@ -357,14 +357,14 @@ def addedLeave():
     emp_id = request.form['emp_id']
     date_start = request.form['date_start']
     date_end = request.form['date_end']
-    day_count = datetime.strptime(date_end, "%Y-%m-%d") - datetime.strptime(date_start, "%Y-%m-%d") + 1
+    day_count = datetime.strptime(date_end, "%Y-%m-%d") - datetime.strptime(date_start, "%Y-%m-%d") 
     reason = request.form['reason']
     apply_date = datetime.now().strftime("%Y-%m-%d")
 
     insert_sql = "INSERT INTO leaves VALUES (%s,%s, %s, %s, %s, %s, %s)"
     cursor = db_conn.cursor(pymysql.cursors.DictCursor)
     cursor.execute(insert_sql, (None, emp_id, date_start,
-                   date_end, day_count.days, reason, apply_date))
+                   date_end, day_count.days + 1, reason, apply_date))
     db_conn.commit()
     cursor.close()
     return redirect(url_for("displayLeave"))
