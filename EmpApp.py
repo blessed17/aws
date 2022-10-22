@@ -87,6 +87,7 @@ def displayEmployee():
     cursor = db_conn.cursor()
     cursor.execute("Select * from employee")
     employeeList = cursor.fetchall()
+    cur.close()
     print(employeeList)
     return render_template('DisplayEmp.html', empList=employeeList, bucketName=bucket)
 
